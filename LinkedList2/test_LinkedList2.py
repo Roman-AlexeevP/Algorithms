@@ -120,6 +120,21 @@ class TestLinkedList2(TestCase):
         self.assertEqual(self.filled_list.find(5).next.value, 33)
         self.assertEqual(self.filled_list.find(6).prev.value, 33)
 
+    def test_insert_filled_2(self):
+        node = Node(33)
+        self.filled_list.insert(
+            afterNode=self.filled_list.find(10),
+            newNode=node
+        )
+        self.assertIsNotNone(self.filled_list.find(33))
+        self.assertEqual(self.filled_list.len(), 11)
+        self.assertEqual(self.filled_list.tail, node)
+        self.assertIsNone(self.filled_list.tail.next)
+
+    def test_insert_non_empty(self):
+        self.list_with_one_element.insert(afterNode=self.list_with_one_element.tail, newNode=Node(5))
+
+
     def test_add_in_head_empty(self):
 
         self.empty_list.add_in_head(self.test_node)

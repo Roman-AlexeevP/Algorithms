@@ -79,6 +79,8 @@ class LinkedList2:
                 self.add_in_head(newNode)
             else:
                 self.add_in_tail(newNode)
+        elif afterNode is self.tail:
+            self.add_in_tail(newNode)
         else:
             newNode.next = afterNode.next
             newNode.prev = afterNode
