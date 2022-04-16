@@ -1,4 +1,4 @@
-class Stack:
+class StackHead():
     def __init__(self):
         self.stack = []
 
@@ -7,13 +7,13 @@ class Stack:
 
     def pop(self):
         if self.stack:
-            return self.stack.pop()
+            return self.stack.pop(0)
         return None
 
     def push(self, value):
-        return self.stack.append(value)
+        self.stack.insert(0, value)
 
     def peek(self):
         if self.stack:
-            return self.stack[self.size()-1]
+            return self.stack[0]
         return None
