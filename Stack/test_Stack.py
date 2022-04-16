@@ -1,6 +1,7 @@
 from unittest import TestCase
 
 from Stack import is_balanced_string, Stack
+from postfix_calculation import calcucate_postfix
 
 
 class Test(TestCase):
@@ -50,3 +51,31 @@ class StackTest(TestCase):
         self.stack.push(1)
         self.assertEqual(self.stack.peek(), 1)
         self.assertEqual(self.stack.size(), 1)
+
+class PostfixCalculateTest(TestCase):
+
+    def test_calculation(self):
+        stack = Stack()
+        stack.push("=")
+        stack.push("*")
+        stack.push(3)
+        stack.push("+")
+        stack.push(2)
+        stack.push(1)
+        value = calcucate_postfix(stack)
+        self.assertEqual(value, 9)
+
+
+    def test_calculation_2(self):
+        expression = "82+5*9+="
+        stack = Stack()
+        stack.push("=")
+        stack.push('+')
+        stack.push(9)
+        stack.push("*")
+        stack.push(5)
+        stack.push("+")
+        stack.push(8)
+        stack.push(2)
+        value = calcucate_postfix(stack)
+        self.assertEqual(value, 59)
