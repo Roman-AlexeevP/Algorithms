@@ -1,12 +1,14 @@
 from Deque import Deque
 
 def is_palindrom(string):
-    deque = Deque()
+    deque_front = Deque()
+    deque_tail = Deque()
 
     for letter in string:
-        deque.addFront(letter)
+        deque_front.addFront(letter)
+        deque_tail.addTail(letter)
 
-    for letter in string:
-        if deque.removeFront() != letter:
+    while deque_tail.size() > 0:
+        if deque_front.removeTail() != deque_tail.removeTail():
             return False
     return True
