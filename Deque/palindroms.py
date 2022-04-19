@@ -6,7 +6,7 @@ def is_palindrom(string):
     for letter in string:
         deque.addFront(letter)
 
-    while deque.size():
-        if deque.removeTail() != string[deque.size()]:
+    while deque.size() > 1:
+        if deque.removeTail() != deque.removeFront():
             return False
 return True
