@@ -4,7 +4,7 @@ def is_palindrom(string):
     deque = Deque()
 
     for letter in string:
-        deque.addFront(letter)
+        deque.addTail(letter)
 
     while deque.size() > 1:
         if deque.removeTail() != deque.removeFront():
