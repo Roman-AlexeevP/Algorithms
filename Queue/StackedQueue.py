@@ -11,8 +11,7 @@ class StackedQueue():
     def dequeue(self):
         if self.stack_out.size() < 1:
             while self.stack_in.size() > 0:
-                value = self.stack_in.pop()
-                self.stack_out.push(value)
+                self.stack_out.push(self.stack_in.pop())
         return self.stack_out.pop()
 
     def size(self):
