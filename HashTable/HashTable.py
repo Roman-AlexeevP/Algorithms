@@ -20,12 +20,16 @@ class HashTable:
         return None
 
     def put(self, value):
+        if self.size < 1:
+            return None
         index = self.seek_slot(value)
         if index is not None:
             self.slots[index] = value
         return None
 
     def find(self, value):
+        if self.size < 1:
+            return None
         index = self.hash_fun(value)
         if self.slots[index] == value:
             return index

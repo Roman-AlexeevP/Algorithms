@@ -23,6 +23,22 @@ class TestQueue(TestCase):
         self.hashtable.slots[6] = "foo"
         self.assertIsNone(self.hashtable.seek_slot("foo"))
 
+    def test_put(self):
+        self.hashtable.put("foo")
+        self.assertTrue("foo" in self.hashtable.slots)
+
+    def test_random_put(self):
+        values = [random_string(i) for i in range(3,18)]
+        random_hashtable = HashTable(sz=19, stp=3)
+        for v in values:
+            random_hashtable.put(v)
+        self.assertTrue(all([value in random_hashtable.slots for value in values]))
+
+    def test_empty_put(self):
+        hashtable_empty = HashTable(sz=0, stp=7)
+        self.assertIsNone(hashtable_empty.put("fff"))
+        self.assertIsNone(hashtable_empty.find("fff"))
+        self.assertEqual(hashtable_empty.slots, [])
 
     def test_find(self):
         s1 = "foo"
