@@ -24,14 +24,19 @@ class TestQueue(TestCase):
         self.assertIsNone(self.hashtable.seek_slot("foo"))
 
     def test_put(self):
-        self.hashtable.put("foo")
+        self.assertIsNotNone(self.hashtable.put("foo"))
         self.assertTrue("foo" in self.hashtable.slots)
+
+    def test_put_none(self):
+        for i in range(self.hashtable.size):
+            self.assertIsNotNone(self.hashtable.put("foo"))
+        self.assertIsNone(self.hashtable.put("bar"))
 
     def test_random_put(self):
         values = [random_string(i) for i in range(3,18)]
         random_hashtable = HashTable(sz=19, stp=3)
         for v in values:
-            random_hashtable.put(v)
+            self.assertIsNotNone(random_hashtable.put(v))
         self.assertTrue(all([value in random_hashtable.slots for value in values]))
 
     def test_empty_put(self):
