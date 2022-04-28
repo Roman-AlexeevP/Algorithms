@@ -8,7 +8,7 @@ class HashTable:
         return sum(bytearray(value, "utf-8")) % self.size
 
     def seek_slot(self, value):
-        if self.size < 1 or self.step < 1:
+        if self.size < 1:
             return None
         index = self.hash_fun(value)
         if self.slots[index] is None:
@@ -29,7 +29,7 @@ class HashTable:
         return None
 
     def find(self, value):
-        if self.size < 1 or self.step < 1:
+        if self.size < 1:
             return None
         index = self.hash_fun(value)
         if self.slots[index] == value:
