@@ -3,7 +3,6 @@ class PowerSet:
 
     def __init__(self):
         self.items = dict()
-        self.capacity = 50
 
     def size(self):
         return len(self.items)
