@@ -34,11 +34,12 @@ class PowerSet:
         return result
 
     def union(self, set2):
-        if set2.size() < 1 or set2 is None:
-            return self
+        result = PowerSet()
+        for value in self.items:
+            result.put(value)
         for value in set2.items:
-            self.put(value)
-        return self
+            result.put(value)
+        return result
 
     def difference(self, set2):
         result = PowerSet()

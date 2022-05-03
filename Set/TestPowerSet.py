@@ -34,32 +34,6 @@ class TestPowerSet(TestCase):
         self.assertTrue(self.my_set.get("foo"))
         self.assertFalse(self.my_set.get(12345678))
 
-    def test_intersection_empty(self):
-        set_1 = PowerSet()
-        set_2 = PowerSet()
-        values_1 = ["foo", "bar", "lambda"]
-        values_2 = ["bar", "lambda", "brain"]
-        for i in range(3):
-            set_1.put(values_1[i])
-            set_2.put(values_2[i])
-        set_inter = set_1.intersection(set_2)
-        self.assertEqual(set_inter.size(), 2)
-        self.assertIn("lambda", set_inter.items.values())
-        self.assertIn("bar", set_inter.items.values())
-
-    def test_empty_intersection(self):
-        set_1 = PowerSet()
-        set_2 = PowerSet()
-        values_1 = ["foo", "bar", "lambda"]
-        values_2 = ["brain", "lala", "baba"]
-        set_3 = PowerSet()
-        for i in range(3):
-            set_1.put(values_1[i])
-            set_2.put(values_2[i])
-        set_inter = set_1.intersection(set_2)
-        self.assertEqual(set_inter.size(), 0)
-        set_inter = set_inter.intersection(set_3)
-        self.assertEqual(set_inter.size(), 0)
 
     def test_union_sm(self):
         set1 = PowerSet()
@@ -131,6 +105,12 @@ class TestPowerSet(TestCase):
 
         self.assertFalse(set1.issubset(set2))
 
+    def test_remove(self):
+        self.my_set.put("foo")
+        self.assertTrue(self.my_set.remove("foo"))
+        self.assertEqual(self.my_set.size(), 0)
+        self.assertFalse(self.my_set.remove("bar"))
+
     def test_subset_true(self):
         set1 = PowerSet()
         for i in range(5):
@@ -183,3 +163,64 @@ class TestPowerSet(TestCase):
         self.assertEqual(result.size(), 2)
         self.assertIn("foo", result.items)
         self.assertIn("aoa", result.items)
+
+    def test_difference_two(self):
+        first_set = PowerSet()
+        second_set = PowerSet()
+        result = first_set.difference(second_set)
+        self.assertTrue(isinstance(result, PowerSet))
+        self.assertEqual(result.size(), 0)
+        first_set.put("foo")
+        second_set.put("bar")
+        result = first_set.difference(second_set)
+        self.assertTrue(isinstance(result, PowerSet))
+        self.assertEqual(result.size(), 1)
+        self.assertIn("foo", result.items)
+
+    def test_intersection_non_empty(self):
+        first_set = PowerSet()
+        second_set = PowerSet()
+
+        test_values = ["foo", "bar", "test"]
+        test_values_second = ["bar", "test", "lambda"]
+        result_values = ["bar", "test"]
+
+        for i in range(3):
+            first_set.put(test_values[i])
+            second_set.put(test_values_second[i])
+
+        result = first_set.intersection(second_set)
+        self.assertTrue(isinstance(result, PowerSet))
+        self.assertEqual(result.size(), 2)
+        for value in result_values:
+            self.assertIn(value, result.items)
+
+    def test_intersection_empty(self):
+        first_set = PowerSet()
+        second_set = PowerSet()
+
+        first_set.put("foo")
+
+        result = first_set.intersection(second_set)
+        self.assertTrue(isinstance(result, PowerSet))
+        self.assertEqual(result.size(), 0)
+
+    def test_subsets(self):
+        first_set = PowerSet()
+        second_set = PowerSet()
+        test_values = ["foo", "bar", "test"]
+        for value in test_values:
+            first_set.put(value)
+
+        self.assertFalse(first_set.issubset(second_set))
+        self.assertFalse(second_set.issubset(first_set))
+        second_set.put(test_values[0])
+        self.assertTrue(first_set.issubset(second_set))
+        self.assertFalse(second_set.issubset(first_set))
+        second_set.put(test_values[1])
+        second_set.put(test_values[2])
+        self.assertTrue(first_set.issubset(second_set))
+        self.assertTrue(second_set.issubset(first_set))
+        second_set.put("barara")
+        self.assertFalse(first_set.issubset(second_set))
+        self.assertTrue(second_set.issubset(first_set))
