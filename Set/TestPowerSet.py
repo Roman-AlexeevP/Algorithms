@@ -159,6 +159,8 @@ class TestPowerSet(TestCase):
         union_set = main_set.union(empty_set)
         self.assertTrue(isinstance(union_set, PowerSet))
         self.assertEqual(union_set.size(), 5)
+        for i in range(0, 5):
+            self.assertIn(i, union_set.items)
 
     def test_union_empty_with_empty(self):
         main_set = PowerSet()
