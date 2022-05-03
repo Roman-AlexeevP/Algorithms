@@ -99,7 +99,7 @@ class TestPowerSet(TestCase):
         for i in range(5):
             set1.put(i)
         set2 = PowerSet()
-        self.assertFalse(set1.issubset(set2))
+        self.assertTrue(set1.issubset(set2))
         for i in range(7):
             set2.put(i)
 
@@ -208,19 +208,42 @@ class TestPowerSet(TestCase):
     def test_subsets(self):
         first_set = PowerSet()
         second_set = PowerSet()
+        self.assertTrue(first_set.issubset(second_set))
+        self.assertTrue(second_set.issubset(first_set))
         test_values = ["foo", "bar", "test"]
         for value in test_values:
             first_set.put(value)
+        self.assertTrue(first_set.issubset(second_set))
+        self.assertFalse(second_set.issubset(first_set))
 
-        self.assertFalse(first_set.issubset(second_set))
-        self.assertFalse(second_set.issubset(first_set))
-        second_set.put(test_values[0])
-        self.assertTrue(first_set.issubset(second_set))
-        self.assertFalse(second_set.issubset(first_set))
-        second_set.put(test_values[1])
-        second_set.put(test_values[2])
+        for value in test_values:
+            second_set.put(value)
+
         self.assertTrue(first_set.issubset(second_set))
         self.assertTrue(second_set.issubset(first_set))
-        second_set.put("barara")
-        self.assertFalse(first_set.issubset(second_set))
+
+    def test_issubset_second(self):
+        first_set = PowerSet()
+        second_set = PowerSet()
+        test_values = ["foo", "bar", "test"]
+        test_values_second = ["foo", "bar", "test", "lambda", "skyrim"]
+        for value in test_values:
+            first_set.put(value)
+        for value in test_values_second:
+            second_set.put(value)
+
         self.assertTrue(second_set.issubset(first_set))
+        self.assertFalse(first_set.issubset(second_set))
+
+    def test_issubset_third(self):
+        first_set = PowerSet()
+        second_set = PowerSet()
+        test_values = ["foo", "bar", "test", "oblivion"]
+        test_values_second = ["foo", "bar", "test", "lambda", "skyrim"]
+        for value in test_values:
+            first_set.put(value)
+        for value in test_values_second:
+            second_set.put(value)
+
+        self.assertFalse(second_set.issubset(first_set))
+        self.assertFalse(first_set.issubset(second_set))

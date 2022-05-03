@@ -51,9 +51,9 @@ class PowerSet:
         return result
 
     def issubset(self, set2):
-        if set2.size() < 1 or set2 is None:
-            return False
-        for val in set2.items:
-            if not self.get(val):
-                return False
-        return True
+        result = True
+        for value in set2.items:
+            if not self.get(value):
+                result = False
+                break
+        return result
