@@ -38,7 +38,6 @@ class PowerSet:
             return self
         for value in set2.items:
             self.put(value)
-        print(self.items)
         return self
 
     def difference(self, set2):
