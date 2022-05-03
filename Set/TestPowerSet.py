@@ -76,8 +76,11 @@ class TestPowerSet(TestCase):
     def test_union_empty(self):
         self.my_set.put("foo")
         self.my_set.put("bar")
-        res = self.my_set.union(PowerSet())
+        empty = PowerSet()
+        res = self.my_set.union(empty)
         self.assertEqual(res.size(), 2)
+        self.assertIn("foo", self.my_set.items.values())
+        self.assertIn("bar", self.my_set.items.values())
 
     def test_union(self):
         values_1 = [random_string(3) for i in range(10000)]
@@ -132,3 +135,10 @@ class TestPowerSet(TestCase):
         for i in range(5):
             set2.put(i)
         self.assertTrue(set1.issubset(set2))
+
+    def test_intersection_empty_param(self):
+        self.my_set.put("foo")
+        set2 = PowerSet()
+        res = self.my_set.intersection(set2)
+        self.assertEqual(res.size(), 0)
+        self.assertEqual(len(res.items), 0)
