@@ -4,8 +4,10 @@ from unittest import TestCase
 
 from PowerSet import PowerSet
 
+
 def random_string(n):
     return ''.join(random.choices(string.ascii_letters, k=n))
+
 
 class TestPowerSet(TestCase):
 
@@ -24,7 +26,6 @@ class TestPowerSet(TestCase):
         self.my_set.put("foo")
         self.my_set.put("foo")
         self.assertEqual(self.my_set.size(), 1)
-
 
     def test_get(self):
         self.my_set.put("foo")
@@ -62,7 +63,7 @@ class TestPowerSet(TestCase):
 
     def test_union_sm(self):
         set1 = PowerSet()
-        set2 =PowerSet()
+        set2 = PowerSet()
         vals1 = [i for i in range(1, 10)]
         vals2 = [i for i in range(5, 15)]
         for val in vals1:
@@ -71,7 +72,7 @@ class TestPowerSet(TestCase):
             set2.put(val)
         result = set1.union(set2)
         self.assertEqual(result.size(), 14)
-        self.assertEqual([i for i in range(1,15)], list(result.items.values()))
+        self.assertEqual([i for i in range(1, 15)], list(result.items.values()))
 
     def test_union_empty(self):
         self.my_set.put("foo")
@@ -90,8 +91,9 @@ class TestPowerSet(TestCase):
         for i in range(10000):
             set1.put(values_1[i])
             set2.put(values_2[i])
-
-        self.assertIsNotNone(set1.union(set2))
+        union = set1.union(set2)
+        self.assertTrue(isinstance(union, PowerSet))
+        self.assertIsNotNone(union)
 
     def test_diff(self):
         set1 = PowerSet()
@@ -103,6 +105,7 @@ class TestPowerSet(TestCase):
         for val in vals2:
             set2.put(val)
         result = set1.difference(set2)
+        self.assertTrue(isinstance(result, PowerSet))
         self.assertEqual(result.size(), 4)
         self.assertEqual([i for i in range(1, 5)], list(result.items.values()))
 
@@ -114,6 +117,7 @@ class TestPowerSet(TestCase):
             set2.put(i)
 
         res = set1.difference(set2)
+        self.assertTrue(isinstance(res, PowerSet))
         self.assertEqual(res.size(), 0)
 
     def test_subset(self):
@@ -125,7 +129,7 @@ class TestPowerSet(TestCase):
         for i in range(7):
             set2.put(i)
 
-        self.assertFalse(set1.issubset(set2))\
+        self.assertFalse(set1.issubset(set2))
 
     def test_subset_true(self):
         set1 = PowerSet()
@@ -140,5 +144,27 @@ class TestPowerSet(TestCase):
         self.my_set.put("foo")
         set2 = PowerSet()
         res = self.my_set.intersection(set2)
+        self.assertTrue(isinstance(res, PowerSet))
         self.assertEqual(res.size(), 0)
         self.assertEqual(len(res.items), 0)
+
+    def test_union_sets(self):
+        main_set = PowerSet()
+        for i in range(0, 5):
+            main_set.put(i)
+        self.assertEqual(main_set.size(), 5)
+
+        empty_set = PowerSet()
+
+        union_set = main_set.union(empty_set)
+        self.assertTrue(isinstance(union_set, PowerSet))
+        self.assertEqual(union_set.size(), 5)
+
+    def test_union_empty_with_empty(self):
+        main_set = PowerSet()
+
+        empty_set = PowerSet()
+
+        union_set = main_set.union(empty_set)
+        self.assertTrue(isinstance(union_set, PowerSet))
+        self.assertEqual(union_set.size(), 0)

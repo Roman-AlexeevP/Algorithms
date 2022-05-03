@@ -34,7 +34,7 @@ class PowerSet:
         return result
 
     def union(self, set2):
-        if set2.size() == 0 or set2 is None:
+        if set2.size() < 1 or set2 is None:
             return self
         for value in set2.items:
             self.put(value)
@@ -50,7 +50,7 @@ class PowerSet:
         return result
 
     def issubset(self, set2):
-        if set2.size() == 0 or set2 is None:
+        if set2.size() < 1 or set2 is None:
             return False
         for val in set2.items:
             if not self.get(val):
