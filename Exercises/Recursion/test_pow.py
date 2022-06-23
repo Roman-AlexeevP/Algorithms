@@ -1,3 +1,4 @@
+from .pow import recursion_pow
 def test_recursion_positive_pow():
 
     assert recursion_pow(2, 5) == pow(2, 5)

@@ -1,7 +1,6 @@
 
 
 def recursion_pow(base, exp):
-    # 2^-5 = 1 / 2^5
     if exp == 0:
         return 1
     if exp == 1:
