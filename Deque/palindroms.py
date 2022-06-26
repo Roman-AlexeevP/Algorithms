@@ -9,4 +9,4 @@ def is_palindrom(string):
     while deque.size() > 1:
         if deque.removeTail() != deque.removeFront():
             return False
-return True
+    return True
