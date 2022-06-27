@@ -18,10 +18,11 @@ def sum_digits(number):
 
 # расчёт длины списка, для которого разрешена только одна операция удаления первого элемента pop(0)
 def recursion_len(iterable):
-    element = iterable.pop(0)
+    local_iterable = list(iterable)
+    element = local_iterable.pop(0)
     if element is None:
         return 0
-    return 1 + recursion_len(iterable)
+    return 1 + recursion_len(local_iterable)
 
 
 # проверка, является ли строка палиндромом;
@@ -40,7 +41,7 @@ def print_even_values(iterable):
     value = iterable.pop()
     if value % 2 == 0:
         print(value, end=", ")
-    return print_even_values(iterable)
+    print_even_values(iterable)
 
 
 # печать элементов списка с чётными индексами
@@ -53,7 +54,7 @@ def print_even_indexes(iterable):
         return None
     print(iterable.pop(0), end=', ')
     iterable.pop(0)
-    return print_even_indexes(iterable)
+    print_even_indexes(iterable)
 
 
 
