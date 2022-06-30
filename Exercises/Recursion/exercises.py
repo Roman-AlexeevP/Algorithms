@@ -85,11 +85,6 @@ def second_max(iterable):
 import os
 
 def print_all_files(path):
-    """
-    получаем список всего по пути
-    берем первый если папка то рекурсия с новым путем
-    если файл печатаем
-    """
     if not os.path.isdir(path):
         return None
     recursive_print(path, os.listdir(path))
