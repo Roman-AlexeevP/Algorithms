@@ -64,3 +64,14 @@ def test_LeafCount():
 def test_LeafCountZero():
     tree: SimpleTree = SimpleTree(None)
     assert tree.LeafCount() == 0
+
+def test_GetAllNodesWithLevel():
+    parent: SimpleTreeNode = SimpleTreeNode(1, None)
+    tree: SimpleTree = SimpleTree(parent)
+    child: SimpleTreeNode = SimpleTreeNode(5, None)
+    tree.AddChild(parent, child)
+    siblings = [SimpleTreeNode(i, None) for i in range(5)]
+    for sibling in siblings:
+        tree.AddChild(child, sibling)
+    print("\n")
+    print(tree.GetAllNodesWithLevel())

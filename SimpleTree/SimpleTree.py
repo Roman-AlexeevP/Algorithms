@@ -36,6 +36,16 @@ class SimpleTree:
             nodes += child_tree.GetAllNodes()
         return nodes
 
+    def GetAllNodesWithLevel(self, prev_level=None):
+        if self.Root is None:
+            return []
+        level = prev_level or 1
+        print(f"{self.Root} on level: {level} with value: {self.Root.NodeValue}")
+        level += 1
+        for children in self.Root.Children:
+            child_tree = SimpleTree(children)
+            child_tree.GetAllNodesWithLevel(level)
+
 
     def FindNodesByValue(self, val):
         if self.Root is None:
