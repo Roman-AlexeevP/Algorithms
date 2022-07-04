@@ -28,7 +28,7 @@ class SimpleTree:
 
 
     def GetAllNodes(self):
-        if self.Root is None or not self.Root.Children:
+        if self.Root is None:
             return []
         nodes = [self.Root, ]
         for children in self.Root.Children:

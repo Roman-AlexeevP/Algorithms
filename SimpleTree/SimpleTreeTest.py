@@ -16,7 +16,19 @@ def test_GetAllNodes():
     for sibling in siblings:
         tree.AddChild(child, sibling)
     all_nodes = [parent, child] + siblings
-    assert all_nodes == tree.GetAllNodes()
+    tested_all_nodes = tree.GetAllNodes()
+    for node in all_nodes:
+        assert node in tested_all_nodes
+    assert len(tested_all_nodes) == 7
+
+def test_GetAllNodesOneElement():
+    parent: SimpleTreeNode = SimpleTreeNode(1, None)
+    tree: SimpleTree = SimpleTree(parent)
+    assert len(tree.GetAllNodes()) == 1 and parent in tree.GetAllNodes()
+    child: SimpleTreeNode = SimpleTreeNode(5, None)
+    tree.AddChild(parent, child)
+    all_nodes = tree.GetAllNodes()
+    assert len(all_nodes) == 2 and child in all_nodes and parent in all_nodes
 
 def test_FindNodesByValue():
     value = 5
