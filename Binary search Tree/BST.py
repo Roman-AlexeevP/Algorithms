@@ -10,9 +10,6 @@ class BSTNode:
     def is_leaf(self):
         return self.RightChild is None and self.LeftChild is None
 
-    def has_both_children(self):
-        return self.RightChild is not None and self.LeftChild is not None
-
 
 class BSTFind:
 
