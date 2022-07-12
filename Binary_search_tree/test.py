@@ -4,6 +4,25 @@ from BST import BST, BSTFind, BSTNode
 
 
 @pytest.fixture()
+def tree_for_all_nodes():
+    root = BSTNode(parent=None, key=10, val=10)
+    tree = BST(root)
+    tree.AddKeyValue(15, 15)
+    tree.AddKeyValue(5, 5)
+    tree.AddKeyValue(12, 12)
+    tree.AddKeyValue(17, 17)
+    tree.AddKeyValue(11, 11)
+    tree.AddKeyValue(13, 13)
+    tree.AddKeyValue(16, 16)
+    tree.AddKeyValue(18, 18)
+    tree.AddKeyValue(2, 2)
+    tree.AddKeyValue(6, 6)
+    tree.AddKeyValue(1, 1)
+    tree.AddKeyValue(3, 3)
+    return tree
+
+
+@pytest.fixture()
 def empty_find_result():
     expected_result = BSTFind()
     expected_result.Node = None
@@ -253,3 +272,46 @@ def test_Count_with_children(tree_with_root):
     for i in range(2, 101):
         assert tree.AddKeyValue(i, i)
     assert tree.Count() == 100
+
+
+def test_WideAllNodes(tree_for_all_nodes):
+    tree = tree_for_all_nodes
+
+    all_nodes = tree.WideAllNodes()
+
+    assert [10, 5, 15, 2, 6, 12, 17, 1, 3, 11, 13, 16, 18] == [node.NodeKey for node in all_nodes]
+
+
+def test_WideAllNodes(tree_with_root):
+    tree, root = tree_with_root
+
+    tree.AddKeyValue(2, 2)
+    tree.AddKeyValue(3, 3)
+    tree.AddKeyValue(-1, -1)
+    all_nodes = tree.WideAllNodes()
+
+    assert [1, -1, 2, 3] == [node.NodeKey for node in all_nodes]
+
+
+def test_DeepAllNodes_inorder(tree_for_all_nodes):
+    tree = tree_for_all_nodes
+
+    all_nodes = tree.DeepAllNodes(0)
+
+    assert [1, 2, 3, 5, 6, 10, 11, 12, 13, 15, 16, 17, 18] == [node.NodeKey for node in all_nodes]
+
+
+def test_DeepAllNodes_postorder(tree_for_all_nodes):
+    tree = tree_for_all_nodes
+
+    all_nodes = tree.DeepAllNodes(1)
+
+    assert [18, 17, 16, 15, 13, 12, 11, 10, 6, 5, 3, 2, 1] == [node.NodeKey for node in all_nodes]
+
+
+def test_DeepAllNodes_preorder(tree_for_all_nodes):
+    tree = tree_for_all_nodes
+
+    all_nodes = tree.DeepAllNodes(2)
+
+    assert [10, 5, 2, 1, 3, 6, 15, 12, 11, 13, 17, 16, 18] == [node.NodeKey for node in all_nodes]
