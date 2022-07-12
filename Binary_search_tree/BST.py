@@ -154,4 +154,4 @@ class BST:
             all_nodes += left_child_tree.DeepAllNodes(order)
             all_nodes += right_child_tree.DeepAllNodes(order)
 
-        return all_nodes
+        return tuple(all_nodes)
