@@ -33,15 +33,13 @@ class BST:
         if self.Root.NodeKey == key:
             find_result.NodeHasKey = True
             return find_result
-        if key < self.Root.NodeKey:
-            if self.Root.LeftChild is None:
-                find_result.ToLeft = True
-                return find_result
+        find_result.ToLeft = key < self.Root.NodeKey
+        if self.Root.LeftChild is None and self.Root.RightChild is None:
+            return find_result
+        if find_result.ToLeft and self.Root.LeftChild is not None:
             tree = BST(self.Root.LeftChild)
             return tree.FindNodeByKey(key)
-        if key > self.Root.NodeKey:
-            if self.Root.RightChild is None:
-                return find_result
+        if not find_result.ToLeft and self.Root.RightChild is not None:
             tree = BST(self.Root.RightChild)
             return tree.FindNodeByKey(key)
 
