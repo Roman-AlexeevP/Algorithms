@@ -306,7 +306,7 @@ def test_DeepAllNodes_postorder(tree_for_all_nodes):
 
     all_nodes = tree.DeepAllNodes(1)
 
-    assert [18, 17, 16, 15, 13, 12, 11, 10, 6, 5, 3, 2, 1] == [node.NodeKey for node in all_nodes]
+    assert [1,3,2,6,5,11,13,12,16,18,17,15,10] == [node.NodeKey for node in all_nodes]
 
 
 def test_DeepAllNodes_preorder(tree_for_all_nodes):
@@ -315,3 +315,4 @@ def test_DeepAllNodes_preorder(tree_for_all_nodes):
     all_nodes = tree.DeepAllNodes(2)
 
     assert [10, 5, 2, 1, 3, 6, 15, 12, 11, 13, 17, 16, 18] == [node.NodeKey for node in all_nodes]
+

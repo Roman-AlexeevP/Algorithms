@@ -146,9 +146,9 @@ class BST:
             all_nodes.append(self.Root)
             all_nodes += right_child_tree.DeepAllNodes(order)
         if order == 1:
+            all_nodes += left_child_tree.DeepAllNodes(order)
             all_nodes += right_child_tree.DeepAllNodes(order)
             all_nodes.append(self.Root)
-            all_nodes += left_child_tree.DeepAllNodes(order)
         if order == 2:
             all_nodes.append(self.Root)
             all_nodes += left_child_tree.DeepAllNodes(order)
