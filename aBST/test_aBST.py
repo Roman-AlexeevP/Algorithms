@@ -4,19 +4,23 @@ from aBST import aBST
 
 
 def test_find_one_root_empty_tree():
-    tree = aBST(depth=1)
+    tree = aBST(depth=0)
     assert tree.FindKeyIndex(key=10) == 0
 
 
 def test_find_one_root_filled_tree():
-    tree = aBST(depth=1)
+    tree = aBST(depth=0)
+    assert len(tree.Tree) == 1
+
+
     tree.Tree[0] = 0
     assert tree.FindKeyIndex(0) == 0
     assert tree.FindKeyIndex(1000) is None
 
 
-def test_insert_to_forth_depth_tree():
-    tree = aBST(depth=4)
+def test_insert_to_tree():
+    tree = aBST(depth=3)
+    assert len(tree.Tree) == 15
 
     assert tree.AddKey(8) == 0
     assert tree.AddKey(4) == 1
@@ -38,7 +42,8 @@ def test_insert_to_forth_depth_tree():
 
 
 def test_not_fully_filled_tree():
-    tree = aBST(depth=3)
+    tree = aBST(depth=2)
+
     assert tree.AddKey(8) == 0
     assert tree.AddKey(4) == 1
     assert tree.AddKey(12) == 2
