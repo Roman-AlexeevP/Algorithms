@@ -8,6 +8,6 @@ def test_GenerateBBSTArray():
 
 
 def test_GenerateBBSTArray_large():
-    balanced_tree_arr = [10, 5, 15, 4, 6, 12, 16]
+    balanced_tree_arr = [10, 5, 4, 6, 15, 12, 16]
     unsorted_arr = [16, 15, 10, 12, 5, 4, 6]
     assert generate_bst.GenerateBBSTArray(unsorted_arr) == balanced_tree_arr
