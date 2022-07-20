@@ -2,14 +2,17 @@ def GenerateBBSTArray(a):
     if len(a) == 0:
         return []
     array = sorted(a)
-    return built_bst(array, 0, len(array) - 1)
+    new_array = [None]*len(array)
+    return build_bst(array, new_array, 0, 0, len(array) - 1)
 
 
-def built_bst(array, left, right):
-    if left > right or not array:
+def build_bst(array, new_array, root, left, right):
+    if left > right:
         return []
-    middle = left + (right - left) // 2
-    result = [array[middle], ]
-    result += built_bst(array, left, middle - 1)
-    result += built_bst(array, middle + 1, right)
-    return result
+    middle = left + ((right - left) // 2)
+    new_array[root] = array[middle]
+    left_root = 2 * root + 1
+    build_bst(array, new_array, left_root, left, middle - 1)
+    right_root = 2 * root + 2
+    build_bst(array, new_array, right_root, middle + 1, right)
+    return new_array
