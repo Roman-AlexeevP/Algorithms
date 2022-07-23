@@ -1,26 +1,44 @@
 class BSTNode:
 
     def __init__(self, key, parent):
-        self.NodeKey = key  # ключ узла
-        self.Parent = parent  # родитель или None для корня
-        self.LeftChild = None  # левый потомок
-        self.RightChild = None  # правый потомок
-        self.Level = 0  # уровень узла
+        self.NodeKey = key
+        self.Parent = parent
+        self.LeftChild = None
+        self.RightChild = None
+        self.Level = 0
 
 
 class BalancedBST:
 
     def __init__(self):
-        self.Root = None  # корень дерева
+        self.Root = None
 
     def GenerateTree(self, a):
         if len(a) == 0:
             return []
         array = sorted(a)
-        self.build_bst(array,None, 0, len(array) - 1)
+        self.build_bst(array, None, 0, len(array) - 1)
 
     def IsBalanced(self, root_node):
-        return False  # сбалансировано ли дерево с корнем root_node
+        if root_node is None:
+            return True
+
+        left_height = self.get_height(root_node.LeftChild)
+        right_height = self.get_height(root_node.RightChild)
+        difference = abs(left_height - right_height)
+
+        is_balanced_left = self.IsBalanced(root_node.LeftChild)
+        is_balanced_right = self.IsBalanced(root_node.RightChild)
+        is_balanced = difference <= 1 and is_balanced_right and is_balanced_left
+        return is_balanced
+
+    def get_height(self, root):
+        if root is None:
+            return 0
+        height_right = self.get_height(root.RightChild)
+        height_left = self.get_height(root.LeftChild)
+        height = height_left if height_left > height_right else height_right
+        return height + 1
 
     def build_bst(self, array, root, left, right):
         if left > right:
@@ -36,23 +54,6 @@ class BalancedBST:
         if root is not None:
             node.Level = root.Level + 1
 
-        node.LeftChild = self.build_bst(array, node, left, middle-1)
-        node.RightChild = self.build_bst(array, node, middle+1, right)
+        node.LeftChild = self.build_bst(array, node, left, middle - 1)
+        node.RightChild = self.build_bst(array, node, middle + 1, right)
         return node
-
-    def WideAllNodes(self):
-        all_nodes = []
-        if self.Root is None:
-            return []
-        all_nodes.append(self.Root.NodeKey)
-        nodes_queue = [self.Root, ]
-        while nodes_queue:
-            node = nodes_queue.pop(0)
-            if node.LeftChild is not None:
-                all_nodes.append(node.LeftChild.NodeKey)
-                nodes_queue.append(node.LeftChild)
-            if node.RightChild is not None:
-                all_nodes.append(node.RightChild.NodeKey)
-                nodes_queue.append(node.RightChild)
-
-        return tuple(all_nodes)

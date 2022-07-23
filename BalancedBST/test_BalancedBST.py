@@ -18,13 +18,17 @@ def test_tiny_balanced_tree():
     assert tree.Root.RightChild.NodeKey == 3
     assert tree.Root.RightChild.Level == 1
     assert tree.WideAllNodes() == (2, 1, 3)
+    assert tree.IsBalanced(tree.Root)
+
 
 def test_one_element_tree():
     tree = BalancedBST()
 
     sorted_array = [1]
     tree.GenerateTree(sorted_array)
-    assert tree.WideAllNodes() == (1, )
+    assert tree.WideAllNodes() == (1,)
+    assert tree.IsBalanced(tree.Root)
+
 
 def test_non_symmetrical_tree():
     tree = BalancedBST()
@@ -34,3 +38,13 @@ def test_non_symmetrical_tree():
     tree.GenerateTree(sorted_array)
 
     assert tree.WideAllNodes() == (50, 25, 75, 10, 30, 65, 85, 95)
+    assert tree.IsBalanced(tree.Root)
+
+
+def test_unbalanced_tree():
+    tree = BalancedBST()
+
+    sorted_array = [1, 3, 8, 10, 13, 15]
+
+    tree.GenerateTree(sorted_array)
+    assert tree.IsBalanced(tree.Root)
