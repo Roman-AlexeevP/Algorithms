@@ -26,7 +26,6 @@ class SimpleTree:
         for child in NodeToDelete.Children:
             deleted_tree.DeleteNode(child)
 
-
     def GetAllNodes(self):
         if self.Root is None:
             return []
@@ -35,17 +34,6 @@ class SimpleTree:
             child_tree = SimpleTree(children)
             nodes += child_tree.GetAllNodes()
         return nodes
-
-    def GetAllNodesWithLevel(self, prev_level=None):
-        if self.Root is None:
-            return []
-        level = prev_level or 1
-        print(f"{self.Root} on level: {level} with value: {self.Root.NodeValue}")
-        level += 1
-        for children in self.Root.Children:
-            child_tree = SimpleTree(children)
-            child_tree.GetAllNodesWithLevel(level)
-
 
     def FindNodesByValue(self, val):
         if self.Root is None:
@@ -57,7 +45,6 @@ class SimpleTree:
             child_tree = SimpleTree(children)
             nodes += child_tree.FindNodesByValue(val)
         return nodes
-
 
     def MoveNode(self, OriginalNode, NewParent):
         OriginalNode.Parent.Children.remove(OriginalNode)
@@ -71,7 +58,6 @@ class SimpleTree:
             child_tree = SimpleTree(child)
             count += child_tree.Count()
         return count
-
 
     def LeafCount(self):
         if self.Root is None:
@@ -95,6 +81,4 @@ class SimpleTree:
                 result_list.append(self.Root)
                 result_list.append(child)
 
-
         return result_list
-
