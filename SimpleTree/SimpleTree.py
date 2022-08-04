@@ -83,3 +83,18 @@ class SimpleTree:
             child_tree = SimpleTree(child)
             count += child_tree.LeafCount()
         return count
+
+    def EvenTrees(self):
+        result_list = []
+        if self.Root is None:
+            return result_list
+        for child in self.Root.Children:
+            child_tree = SimpleTree(child)
+            child_tree_count = child_tree.Count()
+            if child_tree_count % 2 == 0 and child_tree_count > 1:
+                result_list.append(self.Root)
+                result_list.append(child)
+
+
+        return result_list
+
