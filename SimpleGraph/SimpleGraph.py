@@ -2,6 +2,7 @@ class Vertex:
 
     def __init__(self, val):
         self.Value = val
+        self.Hit = False
 
 
 class SimpleGraph:
@@ -59,3 +60,34 @@ class SimpleGraph:
         self.m_adjacency[v1][v2] = 0
         self.m_adjacency[v2][v1] = 0
         pass
+
+    def DepthFirstSearch(self, VFrom, VTo):
+        if VFrom is None or VTo is None:
+            return []
+        if VFrom >= self.max_vertex or VTo >= self.max_vertex:
+            return []
+        for v in self.vertex:
+            if v is not None:
+                v.Hit = False
+
+        visited_vertex_stack = []
+        visited_vertex_stack.append(self.vertex[VFrom])
+
+        while len(visited_vertex_stack) > 0:
+            vertex = visited_vertex_stack[-1]
+            vertex.Hit = True
+
+            if self.m_adjacency[VFrom][VTo] == 1:
+                visited_vertex_stack.append(self.vertex[VTo])
+                return visited_vertex_stack
+
+            for v in range(len(self.m_adjacency[VFrom])):
+                if self.m_adjacency[VFrom][v] == 1 and not self.vertex[v].Hit:
+                    VFrom = v
+                    visited_vertex_stack.append(self.vertex[VFrom])
+                    break
+            else:
+                visited_vertex_stack.pop()
+
+        return []
+

@@ -56,3 +56,16 @@ def test_RemoveVertex():
     graph.RemoveVertex(v)
     assert graph.vertex[v] is None
     assert all(list(filter(lambda x: x[v] == 0, graph.m_adjacency)))
+
+def test_DFS():
+    graph = SimpleGraph(5)
+    for i in range(4):
+        graph.AddVertex(i)
+    graph.AddEdge(0, 1)
+    graph.AddEdge(1, 2)
+    graph.AddEdge(1, 3)
+    graph.AddVertex(5)
+    assert graph.DepthFirstSearch(0, 2) == [graph.vertex[v] for v in range(3)]
+    assert graph.DepthFirstSearch(0, 3) == [graph.vertex[0], graph.vertex[1], graph.vertex[3]]
+    assert graph.DepthFirstSearch(2, 3) == [graph.vertex[2], graph.vertex[1], graph.vertex[3]]
+    assert graph.DepthFirstSearch(1, 4) == []
