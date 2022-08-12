@@ -124,9 +124,9 @@ class SimpleGraph:
         path = []
         target = VTo
         if path_found:
-            path.append(target)
+            path.append(self.vertex[target])
             while node_parents[target] is not None:
-                path.append(node_parents[target])
+                path.append(self.vertex[node_parents[target]])
                 target = node_parents[target]
             path.reverse()
         return path

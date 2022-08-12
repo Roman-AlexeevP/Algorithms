@@ -82,5 +82,5 @@ def test_BFS():
     graph.AddEdge(1, 3)
     graph.AddEdge(3, 4)
 
-    assert graph.BreadthFirstSearch(3, 4) == [3 ,4]
-    assert graph.BreadthFirstSearch(0, 4) == [0, 1, 3, 4]
+    assert graph.BreadthFirstSearch(3, 4) == [graph.vertex[3], graph.vertex[4]]
+    assert graph.BreadthFirstSearch(0, 4) == [graph.vertex[0],graph.vertex[1],graph.vertex[3],graph.vertex[4],]
