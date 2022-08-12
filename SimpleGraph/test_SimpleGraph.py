@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from SimpleGraph import *
 
 
@@ -69,3 +71,16 @@ def test_DFS():
     assert graph.DepthFirstSearch(0, 3) == [graph.vertex[0], graph.vertex[1], graph.vertex[3]]
     assert graph.DepthFirstSearch(2, 3) == [graph.vertex[2], graph.vertex[1], graph.vertex[3]]
     assert graph.DepthFirstSearch(1, 4) == []
+
+
+def test_BFS():
+    graph = SimpleGraph(5)
+    for i in range(5):
+        graph.AddVertex(i)
+    graph.AddEdge(0, 1)
+    graph.AddEdge(1, 2)
+    graph.AddEdge(1, 3)
+    graph.AddEdge(3, 4)
+
+    assert graph.BreadthFirstSearch(3, 4) == [3 ,4]
+    assert graph.BreadthFirstSearch(0, 4) == [0, 1, 3, 4]

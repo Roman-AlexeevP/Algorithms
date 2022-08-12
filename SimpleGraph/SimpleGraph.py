@@ -91,3 +91,42 @@ class SimpleGraph:
 
         return []
 
+    def BreadthFirstSearch(self, VFrom, VTo):
+        if VFrom is None or VTo is None:
+            return []
+        if VFrom >= self.max_vertex or VTo >= self.max_vertex:
+            return []
+        for v in self.vertex:
+            if v is not None:
+                v.Hit = False
+
+        visited_vertex_queue = []
+        visited_vertex_queue.append(VFrom)
+        node_parents = dict()
+        node_parents[VFrom] = None
+        path_found = False
+
+        while len(visited_vertex_queue) > 0:
+            vertex_index = visited_vertex_queue.pop(0)
+            self.vertex[vertex_index].Hit = True
+
+            if self.m_adjacency[vertex_index][VTo] == 1:
+                node_parents[VTo] = vertex_index
+                path_found = True
+                break
+
+            for v in range(self.max_vertex):
+
+                if self.m_adjacency[vertex_index][v] == 1 and not self.vertex[v].Hit:
+                    visited_vertex_queue.append(v)
+                    node_parents[v] = vertex_index
+
+        path = []
+        target = VTo
+        if path_found:
+            path.append(target)
+            while node_parents[target] is not None:
+                path.append(node_parents[target])
+                target = node_parents[target]
+            path.reverse()
+        return path
