@@ -84,3 +84,22 @@ def test_BFS():
 
     assert graph.BreadthFirstSearch(3, 4) == [graph.vertex[3], graph.vertex[4]]
     assert graph.BreadthFirstSearch(0, 4) == [graph.vertex[0],graph.vertex[1],graph.vertex[3],graph.vertex[4],]
+
+
+def test_BFS_with_many_edges():
+    graph = SimpleGraph(8)
+    for i in range(8):
+        graph.AddVertex(i)
+    graph.AddEdge(0, 1)
+    graph.AddEdge(0, 3)
+    graph.AddEdge(0, 4)
+    graph.AddEdge(1, 2)
+    graph.AddEdge(1, 3)
+    graph.AddEdge(2, 3)
+    graph.AddEdge(5, 3)
+    graph.AddEdge(5, 6)
+    graph.AddEdge(4, 6)
+    graph.AddEdge(4, 7)
+
+    assert graph.BreadthFirstSearch(0, 6) == [graph.vertex[0], graph.vertex[4], graph.vertex[6]]
+    assert graph.BreadthFirstSearch(0, 5) == [graph.vertex[0], graph.vertex[3], graph.vertex[5]]
