@@ -118,7 +118,6 @@ class SimpleGraph:
             for v in range(self.max_vertex):
 
                 if self.m_adjacency[vertex_index][v] == 1 and not self.vertex[v].Hit:
-                    print(self.vertex[v].Value)
                     visited_vertex_queue.append(v)
                     if v not in node_parents:
                         node_parents[v] = vertex_index
