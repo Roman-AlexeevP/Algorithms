@@ -131,3 +131,22 @@ class SimpleGraph:
                 target = node_parents[target]
             path.reverse()
         return path
+
+    def WeakVertices(self):
+        weak_vertices = []
+        for v in range(self.max_vertex):
+            if self.vertex[v] is None:
+                continue
+            adjacency_vertices = []
+            for i in range(self.max_vertex):
+                if self.m_adjacency[v][i] == 1:
+                    adjacency_vertices.append(i)
+            triangles_count = 0
+            while len(adjacency_vertices) > 0:
+                vertex = adjacency_vertices.pop()
+                for i in adjacency_vertices:
+                    if self.m_adjacency[vertex][i] == 1:
+                        triangles_count += 1
+            if triangles_count == 0:
+                weak_vertices.append(self.vertex[v])
+        return weak_vertices

@@ -59,6 +59,7 @@ def test_RemoveVertex():
     assert graph.vertex[v] is None
     assert all(list(filter(lambda x: x[v] == 0, graph.m_adjacency)))
 
+
 def test_DFS():
     graph = SimpleGraph(5)
     for i in range(4):
@@ -83,7 +84,7 @@ def test_BFS():
     graph.AddEdge(3, 4)
 
     assert graph.BreadthFirstSearch(3, 4) == [graph.vertex[3], graph.vertex[4]]
-    assert graph.BreadthFirstSearch(0, 4) == [graph.vertex[0],graph.vertex[1],graph.vertex[3],graph.vertex[4],]
+    assert graph.BreadthFirstSearch(0, 4) == [graph.vertex[0], graph.vertex[1], graph.vertex[3], graph.vertex[4], ]
 
 
 def test_BFS_with_many_edges():
@@ -103,3 +104,35 @@ def test_BFS_with_many_edges():
 
     assert graph.BreadthFirstSearch(0, 6) == [graph.vertex[0], graph.vertex[4], graph.vertex[6]]
     assert graph.BreadthFirstSearch(0, 5) == [graph.vertex[0], graph.vertex[3], graph.vertex[5]]
+
+
+def test_WeakVertices():
+    graph = SimpleGraph(9)
+    for i in range(9):
+        graph.AddVertex(i)
+
+    graph.AddEdge(0, 1)
+    graph.AddEdge(0, 2)
+    graph.AddEdge(1, 2)
+    graph.AddEdge(1, 3)
+    graph.AddEdge(2, 3)
+    graph.AddEdge(3, 4)
+    graph.AddEdge(2, 5)
+    graph.AddEdge(4, 5)
+    graph.AddEdge(5, 6)
+    graph.AddEdge(5, 7)
+    graph.AddEdge(6, 7)
+    graph.AddEdge(7, 8)
+    assert graph.WeakVertices() == [graph.vertex[4], graph.vertex[8]]
+
+def test_WeakVertices_no_weak():
+    graph = SimpleGraph(4)
+    for i in range(9):
+        graph.AddVertex(i)
+    graph.AddEdge(0, 1)
+    graph.AddEdge(0, 2)
+    graph.AddEdge(1, 2)
+    graph.AddEdge(1, 3)
+    graph.AddEdge(2, 3)
+
+    assert graph.WeakVertices() == []
